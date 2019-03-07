@@ -338,3 +338,7 @@ ASALocalRun/
 /Release/
 /x64/Debug/
 /x64/Release/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
