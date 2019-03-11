@@ -9,7 +9,11 @@ class ShootingStars
 {
 private:
 	std::vector<std::pair<sf::CircleShape, float>> stars;
-	std::mt19937_64 random;
+	#ifndef _WIN64
+		std::mt19937_64 random;
+	#else
+		std::mt19937 random;
+	#endif
 public:
 	ShootingStars();
 	~ShootingStars() = default;
