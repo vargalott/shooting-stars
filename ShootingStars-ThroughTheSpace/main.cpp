@@ -69,11 +69,18 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Shooting Stars", sf::Style::Titlebar | sf::Style::Close);
 	sf::View view(sf::FloatRect(0.f, 0.f, 1280.f, 720.f));
 
-	ShootingStars stars; sf::Clock clock;
+	ShootingStars stars; sf::Clock clock, chaos_clock;
 	stars.start();
 
 	bool is_auto_rotated_r = false,
-		is_auto_rotated_l = false;
+		is_auto_rotated_l = false,
+		chaos_mode = false;
+
+	std::uniform_real_distribution<float> random_time(1, 5), random_angle(0.1, 10), random_direction(0, 10);
+	std::mt19937_64 random;
+	float current_random_time = random_time(random),
+		current_random_angle = random_angle(random),
+		current_random_direction = random_direction(random);
 
 	while (window.isOpen())
 	{
@@ -112,6 +119,10 @@ int main()
 					is_auto_rotated_l = !is_auto_rotated_l;
 					is_auto_rotated_r = false;
 				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+				{
+					chaos_mode = !chaos_mode;
+				}
 				break;
 			default:
 				break;
@@ -127,6 +138,28 @@ int main()
 			view.rotate(-0.5);
 			window.setView(view);
 		};
+
+		if (chaos_mode)
+		{
+			if (chaos_clock.getElapsedTime().asSeconds() > current_random_time)
+			{
+				current_random_time = random_time(random);
+				current_random_angle = random_angle(random);
+				chaos_clock.restart();
+				current_random_direction = random_direction(random);
+			};
+			if (current_random_direction > 1 && current_random_direction < 5)
+			{
+				view.rotate(current_random_angle);
+				window.setView(view);
+			}
+			else
+			{
+				view.rotate(-current_random_angle);
+				window.setView(view);
+			};
+		};
+
 
 		window.clear();
 		stars.draw(window);
