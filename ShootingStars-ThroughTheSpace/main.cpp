@@ -9,7 +9,7 @@ class ShootingStars
 {
 private:
 	std::vector<std::pair<sf::CircleShape, float>> stars;
-	#ifndef _WIN64
+	#ifdef _WIN64
 		std::mt19937_64 random;
 	#else
 		std::mt19937 random;
@@ -27,13 +27,13 @@ ShootingStars::ShootingStars()
 }
 void ShootingStars::start()
 {
-	std::uniform_real_distribution<float> position(1, 720);
+	std::uniform_real_distribution<float> position(-480, 1200);
 	std::uniform_real_distribution<float> speed(4, 10);
 	std::uniform_int_distribution<int> color(0, 255);
 	std::uniform_real_distribution<float> size(0.5, 3);
 	for (size_t t = 0; t < 25; ++t)
 	{
-		this->stars.push_back(std::make_pair(sf::CircleShape(size(this->random)), speed(this->random)));
+		this->stars.emplace_back(sf::CircleShape(size(this->random)), speed(this->random));
 		this->stars[this->stars.size() - 1].first.setFillColor(sf::Color(color(this->random), color(this->random), color(this->random)));
 		this->stars[this->stars.size() - 1].first.setPosition(-50, position(this->random));
 	}
@@ -42,7 +42,12 @@ void ShootingStars::draw(sf::RenderWindow& window)
 {
 	for (size_t t = 0; t < this->stars.size(); ++t)
 	{
-		if (this->stars[t].first.getPosition().x >= 1280)
+		if (
+			this->stars[t].first.getPosition().x >= 1280 ||
+			this->stars[t].first.getPosition().x <= -100 ||
+			this->stars[t].first.getPosition().y <= -580 ||
+			this->stars[t].first.getPosition().y >= 1300
+			)
 		{
 			this->stars.erase(this->stars.begin() + t);
 			--t;
@@ -61,7 +66,9 @@ void ShootingStars::draw(sf::RenderWindow& window)
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "Shooting Stars");
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "Shooting Stars", sf::Style::Titlebar | sf::Style::Close);
+	sf::View view(sf::FloatRect(0.f, 0.f, 1280.f, 720.f));
+
 	ShootingStars stars; sf::Clock clock;
 	stars.start();
 
@@ -75,8 +82,26 @@ int main()
 		}
 		sf::Event event;
 		while (window.pollEvent(event))
-			if (event.type == sf::Event::Closed)
+			switch (event.type)
+			{
+			case sf::Event::Closed:
 				window.close();
+				break;
+			case sf::Event::KeyPressed:
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+				{
+					view.rotate(0.5);
+					window.setView(view);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+				{
+					view.rotate(-0.5);
+					window.setView(view);
+				};
+				break;
+			default:
+				break;
+			}
 
 		window.clear();
 		stars.draw(window);
