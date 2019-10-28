@@ -72,6 +72,9 @@ int main()
 	ShootingStars stars; sf::Clock clock;
 	stars.start();
 
+	bool is_auto_rotated_r = false,
+		is_auto_rotated_l = false;
+
 	while (window.isOpen())
 	{
 		float time = clock.getElapsedTime().asSeconds();
@@ -80,6 +83,7 @@ int main()
 			clock.restart();
 			stars.start();
 		}
+
 		sf::Event event;
 		while (window.pollEvent(event))
 			switch (event.type)
@@ -97,15 +101,37 @@ int main()
 				{
 					view.rotate(-0.5);
 					window.setView(view);
-				};
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+				{
+					is_auto_rotated_r = !is_auto_rotated_r;
+					is_auto_rotated_l = false;
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::L))
+				{
+					is_auto_rotated_l = !is_auto_rotated_l;
+					is_auto_rotated_r = false;
+				}
 				break;
 			default:
 				break;
-			}
+			};
+
+		if (is_auto_rotated_r)
+		{
+			view.rotate(0.5);
+			window.setView(view);
+		};
+		if (is_auto_rotated_l)
+		{
+			view.rotate(-0.5);
+			window.setView(view);
+		};
 
 		window.clear();
 		stars.draw(window);
 		window.display();
+
 		sf::sleep(sf::milliseconds(50));
 	}
 	return 0;
