@@ -1,6 +1,5 @@
 #include "shooting-stars.hpp"
 
-/* private */
 shooting_stars::shooting_stars(void) : shooting_stars(1280, 720){};
 shooting_stars::shooting_stars(unsigned width, unsigned height)
     : window(sf::VideoMode(width, height), "Shooting Stars",
@@ -24,12 +23,15 @@ void shooting_stars::__draw(void) {
     this->window.draw(*current_star);
   };
 
-  this->__log(std::cerr);
+  #ifndef NDEBUG
+    this->__log(std::cerr);
+  #endif
 
-  if (this->stars.size() == 0)
+  if (this->stars.size() == 0) {
     this->window.close();
-}
-void shooting_stars::__log(std::ostream &out) noexcept {
+  }
+};
+void shooting_stars::__log(std::ostream &out) {
   out << "current count:\t" << this->stars.size() << "\n";
 };
 void shooting_stars::__generate(unsigned generation_count) {
