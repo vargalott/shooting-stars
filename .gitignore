@@ -345,3 +345,5 @@ ASALocalRun/
 
 # Build dir
 build/
+.cache
+.vscode
