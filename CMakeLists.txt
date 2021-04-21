@@ -1,20 +1,14 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.20)
 
-enable_language(CXX)
-set(CMAKE_CXX_STANDARD 17)
-set(DEBUG_OPTIONS -m64 -Wall -Wextra -pedantic -Werror)
-set(RELEASE_OPTIONS -m64 -O2)
+project(shooting-stars)
 
-project(ShootingStars)
-add_subdirectory(3rd_party/sfml)
+add_subdirectory(extern/sfml)
 
-add_executable(ShootingStars)
+add_executable(shooting-stars)
 
-target_sources(ShootingStars PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
-target_sources(ShootingStars PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/ShootingStars.cpp)
-
-target_link_libraries(ShootingStars sfml-graphics)
-target_link_libraries(ShootingStars sfml-audio)
-
-add_compile_options("$<$<CONFIG:DEBUG>:${DEBUG_OPTIONS}>")
-add_compile_options("$<$<CONFIG:RELEASE>:${RELEASE_OPTIONS}>")
+target_include_directories(shooting-stars PRIVATE ${CMAKE_CURRENT_LIST_DIR}/extern/sfml/include)
+target_sources(shooting-stars PRIVATE 
+    ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp 
+    ${CMAKE_CURRENT_LIST_DIR}/src/shooting-stars.cpp
+)
+target_link_libraries(shooting-stars sfml-graphics)

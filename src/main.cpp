@@ -1,11 +1,11 @@
 // This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-#include "ShootingStars.hpp"
+#include "shooting-stars.hpp"
 
 int main(void)
 {
-	ShootingStars::start(25);
+	shooting_stars::start(25);
 
 	return 0;
 };
