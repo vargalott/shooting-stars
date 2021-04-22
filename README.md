@@ -1,6 +1,6 @@
 # shooting-stars
 
-shooting-stars - a simple graphical app that creates a continuous stream of colored stars.
+shooting-stars - a simple graphical app that creates an everlasting stream of colored stars.
 
 <img src="app.gif" width="750"/>
 
