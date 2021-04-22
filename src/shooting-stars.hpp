@@ -8,8 +8,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "m_singleton.hpp"
-
 /**
  * Main app class
  *
@@ -24,18 +22,18 @@ public:
   /**
    * Perform application start from a given stars count
    *
-   * @param[in] generation_count Count of starting stars
+   * @param[in] population Count of starting stars
    */
-  static void start(unsigned generation_count);
+  static void run(unsigned population);
   /**
    * Perform application start in window from a given size
    * from a given stars count
    *
+   * @param[in] population Count of starting stars
    * @param[in] width Window width
    * @param[in] height Window height
-   * @param[in] generation_count Count of starting stars
    */
-  static void start(unsigned width, unsigned height, unsigned generation_count);
+  static void run(unsigned population, unsigned width, unsigned height);
 
 private:
   std::mt19937 random;
@@ -61,21 +59,23 @@ private:
   /**
    * Perform drawing the current available scene objects
    */
-  void __draw(void);
+  void draw(void);
   /**
    * Perfmorm logging the current drawn objects
+   *
+   * @param[in] out Stream for log
    */
-  void __log(std::ostream &out);
+  void log(std::ostream &out);
   /**
    * Perform populating stars from a given count
+   *
+   * @param[in] population Population size
    */
-  void __generate(unsigned generation_count);
+  void populate(unsigned population);
   /**
    * Perfmorm main app loop
    */
-  void __start(unsigned generation_count);
-
-  friend class meyers_singleton<shooting_stars>;
+  void execute(unsigned population);
 };
 
 #endif // !__SHOOTING_STARS_HPP__
