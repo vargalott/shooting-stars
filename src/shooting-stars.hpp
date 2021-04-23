@@ -17,23 +17,19 @@
  */
 class shooting_stars {
 public:
-  ~shooting_stars() = default;
+  /**
+   * Class construnctor
+   * Permorm construnction of the intance of the main app class
+   */
+  shooting_stars(void);
+  ~shooting_stars(void) = default;
 
   /**
-   * Perform application start from a given stars count
+   * Perfmorm main app loop
    *
-   * @param[in] population Count of starting stars
+   * @param[in] population Population size
    */
-  static void run(unsigned population);
-  /**
-   * Perform application start in window from a given size
-   * from a given stars count
-   *
-   * @param[in] population Count of starting stars
-   * @param[in] width Window width
-   * @param[in] height Window height
-   */
-  static void run(unsigned population, unsigned width, unsigned height);
+  void execute(unsigned population);
 
 private:
   std::mt19937 random;
@@ -42,40 +38,22 @@ private:
   std::vector<std::pair<sf::CircleShape /*star*/, float /*speed*/>> stars;
 
   /**
-   * Class construnctor
-   * Permorm construnction of the intance of the main app class
-   */
-  shooting_stars(void);
-  /**
-   * Class construnctor
-   * Permorm construnction of the intance of the main app class
-   * from a given size
+   * Perfmorm logging the current drawn objects
    *
-   * @param[in] width Window width
-   * @param[in] height Window height
+   * @param[in] out Stream for log
    */
-  shooting_stars(unsigned width, unsigned height);
+  void log(std::ostream &out);
 
   /**
    * Perform drawing the current available scene objects
    */
   void draw(void);
   /**
-   * Perfmorm logging the current drawn objects
-   *
-   * @param[in] out Stream for log
-   */
-  void log(std::ostream &out);
-  /**
    * Perform populating stars from a given count
    *
    * @param[in] population Population size
    */
   void populate(unsigned population);
-  /**
-   * Perfmorm main app loop
-   */
-  void execute(unsigned population);
 };
 
 #endif // !__SHOOTING_STARS_HPP__
