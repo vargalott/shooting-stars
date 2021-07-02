@@ -25,3 +25,7 @@ tasks:
   clean:
     cmds:
       - cmake --build ./build --target clean
+
+  run:
+    cmds:
+      - '{{if eq OS "windows"}}./build/shooting-stars.exe{{else}}./build/shooting-stars{{end}}'

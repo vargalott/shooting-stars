@@ -33,10 +33,13 @@ $ cmake --build ./build --config <Debug|Release>
 
 OR
 
-$ $ tasl build_<debug|release>
+$ task build_<debug|release>
 ```
 
-5. You've done! The builded binary file available in the build directory.
+5. You've done! The builded binary file available in the build directory, you can run it using:
+```
+$ task run
+```
 
 ## License
 
