@@ -12,16 +12,28 @@ shooting-stars - a simple graphical app that creates an everlasting stream of co
 ```
 $ git submodule init
 $ git submodule update --init --recursive
+
+OR
+
+$ task init
 ```
 
 3. Configure the project using CMake:
 ```
 $ cmake -B ./build -G <preferred generator> -DCMAKE_BUILD_TYPE=<Debug|Release>
+
+OR
+
+$ task configure_<debug|release> -- <preferred generator>
 ```
 
 4. Then run build command:
 ```
 $ cmake --build ./build --config <Debug|Release>
+
+OR
+
+$ $ tasl build_<debug|release>
 ```
 
 5. You've done! The builded binary file available in the build directory.
