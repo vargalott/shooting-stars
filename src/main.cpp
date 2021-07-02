@@ -1,4 +1,4 @@
-#include "shooting-stars.hpp"
+#include <shooting-stars/core.hpp>
 
 int main(void) {
   shooting_stars().execute(25);

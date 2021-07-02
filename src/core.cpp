@@ -1,5 +1,4 @@
-#include "shooting-stars.hpp"
-#include "SFML/Window/VideoMode.hpp"
+#include <shooting-stars/core.hpp>
 
 shooting_stars::shooting_stars(void) {
   this->window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
