@@ -8,36 +8,24 @@ tasks:
 
   configure_debug:
     cmds:
-      - cmake -B ./build -G {{.CLI_ARGS}} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+      - cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -B ./build -G {{.CLI_ARGS}} -DCMAKE_BUILD_TYPE=Debug
 
   configure_release:
     cmds:
-      - cmake -B ./build -G {{.CLI_ARGS}} -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+      - cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -B ./build -G {{.CLI_ARGS}} -DCMAKE_BUILD_TYPE=Release
 
   build_debug:
     cmds:
-      - task: configure_debug
-        vars: {{.CLI_ARGS}}
       - cmake --build ./build --config Debug
 
   build_release:
     cmds:
-      - task: configure_release
-        vars: {{.CLI_ARGS}}
       - cmake --build ./build --config Release
 
   clean:
     cmds:
       - cmake --build ./build --target clean
 
-  run_debug:
+  run:
     cmds:
-      - task: build_debug
-        vars: {{.CLI_ARGS}}
-      - '{{if eq OS "windows"}}./build/shooting-stars.exe{{else}}./build/shooting-stars{{end}}'
-
-  run_release:
-    cmds:
-      - task: build_release
-        vars: {{.CLI_ARGS}}
       - '{{if eq OS "windows"}}./build/shooting-stars.exe{{else}}./build/shooting-stars{{end}}'
