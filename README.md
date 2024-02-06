@@ -1,6 +1,6 @@
 # shooting-stars
 
-[![Build](https://github.com/andinoriel/shooting-stars/actions/workflows/build.yml/badge.svg)](https://github.com/andinoriel/shooting-stars/actions/workflows/build.yml)
+[![Build](https://github.com/vargalott/shooting-stars/actions/workflows/build.yml/badge.svg)](https://github.com/vargalott/shooting-stars/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 shooting-stars - a simple graphical app that creates an everlasting stream of colored stars.
